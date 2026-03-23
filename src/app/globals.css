@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   background: #000;
@@ -28,7 +29,9 @@ a:hover {
   background: #000;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   color: #ffffff;
   margin-bottom: 10px;
 }
@@ -40,7 +43,8 @@ table {
   font-size: 14px;
 }
 
-th, td {
+th,
+td {
   border: 1px solid #00ffcc;
   padding: 6px;
   text-align: center;
@@ -75,4 +79,43 @@ button {
 
 button:hover {
   background: #002222;
+}
+
+.section p {
+  margin: 4px 0;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 4px 0;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid #00ffcc;
+  box-shadow: 0 0 4px currentColor;
+}
+
+.dot.green {
+  background: #00ff66;
+  color: #00ff66;
+}
+
+.dot.orange {
+  background: #ffaa00;
+  color: #ffaa00;
+}
+
+.dot.red {
+  background: #ff4444;
+  color: #ff4444;
+}
+
+.dot.blue {
+  background: #3399ff;
+  color: #3399ff;
 }

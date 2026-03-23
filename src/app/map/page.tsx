@@ -1,0 +1,63 @@
+'use client'
+
+import { useState } from 'react'
+import dynamic from 'next/dynamic'
+import { stations } from '@/lib/data'
+import StationChart from '@/components/StationChart'
+import MultiChart from '@/components/MultiChart'
+
+const Map = dynamic(() => import('@/components/Map'), {
+  ssr: false,
+})
+
+export default function MapPage() {
+  const [selected, setSelected] = useState<string | null>(null)
+
+  const selectedStation = stations.find((s) => s.id === selected)
+
+  return (
+    <div className="card">
+      <h1>Interactive Map</h1>
+
+      <Map onSelect={setSelected} selected={selected} />
+
+    <div className="section">
+      <h3>Legend</h3>
+
+      <div className="legend-item">
+        <span className="dot green" /> Clean (PM2.5 &lt; 25)
+      </div>
+
+      <div className="legend-item">
+        <span className="dot orange" /> Medium (25–50)
+      </div>
+
+      <div className="legend-item">
+        <span className="dot red" /> High (&gt; 50)
+      </div>
+
+      <div className="legend-item">
+        <span className="dot blue" /> Selected station
+      </div>
+    </div>
+
+      {selected && selectedStation && (
+        <div className="section">
+          <h2>Station: {selectedStation.name}</h2>
+
+          <button onClick={() => setSelected(null)}>
+            Reset selection
+          </button>
+
+          <div className="chart-container">
+            <h3>PM2.5</h3>
+            <StationChart stationId={selected} />
+
+            <h3>All pollutants</h3>
+            <MultiChart stationId={selected} />
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}

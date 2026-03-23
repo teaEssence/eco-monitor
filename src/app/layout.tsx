@@ -14,7 +14,8 @@ export default function RootLayout({
           <nav>
             <Link href="/">Stations</Link> |{' '}
             <Link href="/about">About</Link> |{' '}
-            <Link href="/pollutants">Pollutants</Link>
+            <Link href="/pollutants">Pollutants</Link> |{' '}
+            <Link href="/map">Map</Link>
           </nav>
           <hr />
           {children}
