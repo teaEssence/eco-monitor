@@ -8,6 +8,7 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
+  ResponsiveContainer,
 } from 'recharts'
 import { Measurement } from '@/types/measurement'
 
@@ -21,25 +22,28 @@ export default function StationChart({ stationId }: { stationId: string }) {
   }, [stationId])
 
   return (
-    <LineChart width={600} height={300} data={data}>
-      <CartesianGrid strokeDasharray="3 3" />
+    <ResponsiveContainer width="100%" height={300}>
+      <LineChart data={data}>
+        <CartesianGrid strokeDasharray="3 3" />
 
-      <XAxis
-        dataKey="timestamp"
-        tickFormatter={v => new Date(v).toLocaleTimeString()}
-      />
+        <XAxis
+          dataKey="timestamp"
+          tickFormatter={(v) => new Date(v).toLocaleTimeString()}
+        />
 
-      <YAxis />
-      <Tooltip
-        contentStyle={{
-          backgroundColor: '#111',
-          border: '1px solid #00ffcc',
-          color: '#00ffcc',
-        }}
-        labelStyle={{ color: '#ffffff' }}
-      />
+        <YAxis />
 
-      <Line type="monotone" dataKey="values.pm25" stroke="#00ffcc" />
-    </LineChart>
+        <Tooltip
+          contentStyle={{
+            backgroundColor: '#111',
+            border: '1px solid #00ffcc',
+            color: '#00ffcc',
+          }}
+          labelStyle={{ color: '#ffffff' }}
+        />
+
+        <Line type="monotone" dataKey="values.pm25" stroke="#00ffcc" />
+      </LineChart>
+    </ResponsiveContainer>
   )
 }

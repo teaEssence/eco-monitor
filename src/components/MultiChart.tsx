@@ -1,5 +1,5 @@
 'use client'
-
+import { ResponsiveContainer } from 'recharts'
 import { useEffect, useState } from 'react'
 import {
   LineChart,
@@ -22,7 +22,9 @@ export default function MultiChart({ stationId }: { stationId: string }) {
   }, [stationId])
 
   return (
-    <LineChart width={600} height={300} data={data}>
+
+  <ResponsiveContainer width="100%" height={300}>
+    <LineChart data={data}>
       <CartesianGrid strokeDasharray="3 3" />
 
       <XAxis
@@ -45,6 +47,7 @@ export default function MultiChart({ stationId }: { stationId: string }) {
       <Line type="monotone" dataKey="values.pm25" stroke="#00ffcc" />
       <Line type="monotone" dataKey="values.pm10" stroke="#ff00ff" />
       <Line type="monotone" dataKey="values.no2" stroke="#ffff00" />
-    </LineChart>
+      </LineChart>
+    </ResponsiveContainer>
   )
 }

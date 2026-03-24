@@ -6,6 +6,7 @@ import { stations } from '@/lib/data'
 import StationChart from '@/components/StationChart'
 import MultiChart from '@/components/MultiChart'
 import PieChart from '@/components/PieChart'
+import MyBarChart from '@/components/BarChart'
 
 const Map = dynamic(() => import('@/components/Map'), {
   ssr: false,
@@ -59,6 +60,9 @@ export default function MapPage() {
 
             <h3>Pollution structure</h3>
             <PieChart stationId={selected} />
+
+            <h3>PM2.5 comparison</h3>
+            <MyBarChart />
           </div>
         </div>
       )}

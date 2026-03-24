@@ -1,6 +1,13 @@
 'use client'
 
-import { PieChart, Pie, Cell, Tooltip, Legend } from 'recharts'
+import {
+  PieChart,
+  Pie,
+  Cell,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from 'recharts'
 import { measurements } from '@/lib/data'
 
 type TooltipPayload = {
@@ -19,30 +26,22 @@ const CustomTooltip = ({
     const data = payload[0]
 
     return (
-      <div
-        style={{
-          background: '#111',
-          border: '1px solid #00ffcc',
-          padding: '6px',
-          color: '#00ffcc',
-        }}
-      >
+      <div style={{
+        background: '#111',
+        border: '1px solid #00ffcc',
+        padding: '6px',
+        color: '#00ffcc',
+      }}>
         <p>{data.name}</p>
         <p>{data.value} µg/m³</p>
       </div>
     )
   }
-
   return null
 }
 
-export default function PollutionPieChart({
-  stationId,
-}: {
-  stationId: string
-}) {
+export default function PollutionPieChart({ stationId }: { stationId: string }) {
   const m = measurements.find((m) => m.stationId === stationId)
-
   if (!m) return null
 
   const data = [
@@ -53,21 +52,17 @@ export default function PollutionPieChart({
   ]
 
   return (
-    <PieChart width={400} height={300}>
-      <Pie
-        data={data}
-        dataKey="value"
-        outerRadius={100}
-        labelLine={false}
-      >
-        {data.map((entry, index) => (
-          <Cell key={index} fill={entry.color} />
-        ))}
-      </Pie>
+    <ResponsiveContainer width="100%" height={300}>
+      <PieChart>
+        <Pie data={data} dataKey="value" outerRadius={100}>
+          {data.map((entry, index) => (
+            <Cell key={index} fill={entry.color} />
+          ))}
+        </Pie>
 
-      <Tooltip content={<CustomTooltip />} />
-
-      <Legend />
-    </PieChart>
+        <Tooltip content={<CustomTooltip />} />
+        <Legend />
+      </PieChart>
+    </ResponsiveContainer>
   )
 }
