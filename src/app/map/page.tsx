@@ -52,9 +52,6 @@ export default function MapPage() {
           </button>
 
           <div className="chart-container">
-            <h3>PM2.5 (time)</h3>
-            <StationChart stationId={selected} />
-
             <h3>All pollutants (time)</h3>
             <MultiChart stationId={selected} />
 
