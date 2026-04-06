@@ -3,12 +3,20 @@
 import { useState } from 'react'
 import dynamic from 'next/dynamic'
 import { stations } from '@/lib/data'
-import StationChart from '@/components/StationChart'
-import MultiChart from '@/components/MultiChart'
-import PieChart from '@/components/PieChart'
-import MyBarChart from '@/components/BarChart'
 
 const Map = dynamic(() => import('@/components/Map'), {
+  ssr: false,
+})
+
+const MultiChart = dynamic(() => import('@/components/MultiChart'), {
+  ssr: false,
+})
+
+const PieChart = dynamic(() => import('@/components/PieChart'), {
+  ssr: false,
+})
+
+const MyBarChart = dynamic(() => import('@/components/BarChart'), {
   ssr: false,
 })
 

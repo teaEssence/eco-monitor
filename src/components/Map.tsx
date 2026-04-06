@@ -5,11 +5,13 @@ import {
   TileLayer,
   Marker,
   Popup,
+  useMapEvents,
 } from 'react-leaflet'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 
 import { stations, measurements } from '@/lib/data'
+import { trackEvent } from '@/lib/analytics'
 
 function getLatestPM25(stationId: string) {
   const m = measurements.find((m) => m.stationId === stationId)
@@ -38,6 +40,17 @@ function createCircleIcon(color: string) {
   })
 }
 
+function MapEvents() {
+  useMapEvents({
+    zoomend: (e) => {
+      const zoom = e.target.getZoom()
+      trackEvent('map_zoom', { zoom })
+    },
+  })
+
+  return null
+}
+
 export default function Map({
   onSelect,
   selected,
@@ -51,6 +64,8 @@ export default function Map({
       zoom={6}
       style={{ height: '400px', width: '100%' }}
     >
+      <MapEvents />
+
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
       {stations.map((s) => {
@@ -68,7 +83,10 @@ export default function Map({
             position={[s.coordinates.lat, s.coordinates.lng]}
             icon={createCircleIcon(color)}
             eventHandlers={{
-              click: () => onSelect(s.id),
+              click: () => {
+                trackEvent('map_click', { stationId: s.id })
+                onSelect(s.id)
+              },
             }}
           >
             <Popup>
