@@ -1,18 +1,17 @@
-import { NextResponse } from 'next/server'
-import { stations } from '@/lib/data'
+import { NextRequest, NextResponse } from "next/server";
+import { stations } from "@/lib/data";
 
 export async function GET(
-  req: Request,
-  { params }: { params: { id: string } }
+  req: NextRequest,
+  context: { params: Promise<{ id: string }> },
 ) {
-  const station = stations.find(s => s.id === params.id)
+  const { id } = await context.params;
+
+  const station = stations.find((s) => s.id === id);
 
   if (!station) {
-    return NextResponse.json(
-      { error: 'Station not found' },
-      { status: 404 }
-    )
+    return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
 
-  return NextResponse.json({ data: station })
+  return NextResponse.json({ data: station });
 }
